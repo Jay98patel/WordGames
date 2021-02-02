@@ -1,0 +1,69 @@
+<div class="container mt-4">
+  <h3>Add New Flash Card</h3>
+  <!-- form -->
+  <form class="w-50 bg-light p-3" [formGroup]='wordGameForm'>
+    <div class="form-group">
+      <label for="question">Question</label>
+      <input type="text" formControlName="question" class="form-control" id="question">
+      <span class="text-danger"
+        *ngIf="(wordFormControl.question.touched ) && wordFormControl.question.errors?.required">
+        Question is required
+      </span>
+    </div>
+    <div class="form-group">
+      <label for="answer">Answer</label>
+      <input type="text" formControlName="answer" class="form-control" id="answer">
+      <span class="text-danger" *ngIf="(wordFormControl.answer.touched ) && wordFormControl.answer.errors?.required">
+        Answer is required
+      </span>
+    </div>
+    <button type="submit" (click)="saveWordData()" [disabled]="!wordGameForm.valid" class="btn btn-primary">
+      <span *ngIf="btnValue">
+        Submit
+      </span>
+      <span *ngIf="!btnValue">
+        Update
+      </span>
+    </button>
+    <button *ngIf="!btnValue" class="btn btn-info ml-3" (click)="cancelFormEdit()">Cancel</button>
+    <div *ngIf="showMsg" class="alert alert-success mt-3" role="alert">
+      Data Has Been Saved
+    </div>
+  </form>
+  <!-- form end -->
+  <!-- card list -->
+  <div class="row mt-3">
+    <div class="col-3 mt-2" *ngFor="let word of ans ; let i = index">
+      <div class="card shadow-sm border-0">
+        <div class="card-header border-bottom-0" [ngClass]="{'green':word.show==true ,'red':word.show==false} ">
+          <div class="d-flex">
+            <div>{{word.question}}</div>
+            <a class="ml-auto" data-toggle="collapse" href="#ans-{{i}}">
+              <div class="fas fa-arrow-down"></div>
+            </a>
+          </div>
+        </div>
+        <div class="collapse card-body p-0" id="ans-{{i}}">
+          <div class="d-flex flex-column h-100 p-3">
+            <div class="mb-3">{{word.answer}}</div>
+            <div class="d-flex mt-auto justify-content-between action-btn">
+              <a (click)="correctAns(word)">
+                <div class="fas fa-check w-100"></div>
+              </a>
+              <a (click)="wrongAns(word)">
+                <div class="fas fa-times w-100"></div>
+              </a>
+              <a (click)="editAns(word.id)">
+                <div class="fas fa-edit w-100"></div>
+              </a>
+              <a (click)="removeFlashCard(i)">
+                <div class="fas fa-trash"></div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- card list end-->
+</div>

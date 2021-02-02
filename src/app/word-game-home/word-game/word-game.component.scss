@@ -1,0 +1,22 @@
+.card-body {
+  padding: 20px 10px 10px 10px;
+  height: 138px;
+  // transition: 0.5s min-height ease-in-out;
+  .fas{
+    color: #3273dc;
+  }
+}
+
+a {
+  cursor: pointer;
+}
+//answer 
+.green {
+  background-color: green;
+  color: white;
+}
+
+.red {
+  background-color: red;
+  color: white;
+}
